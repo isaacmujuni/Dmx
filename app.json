@@ -2,6 +2,35 @@
   "expo": {
     "name": "Dmx",
     "slug": "Dmx",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "android": {
+      "permissions": [
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_HEART_RATE",
+        "android.permission.health.READ_SLEEP",
+        "android.permission.health.READ_EXERCISE",
+        "android.permission.health.READ_ACTIVE_CALORIES_BURNED"
+      ],
+      "package": "com.dmx"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "minSdkVersion": 26
+          }
+        }
+      ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.dmx"
+    }
   }
 }
