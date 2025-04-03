@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import ChatScreen from './components/ChatScreen';
@@ -12,7 +13,26 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+// This is the navigator for the main chat screen with drawer
+const ChatNavigator = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawer {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          width: '85%',
+        },
+      }}
+    >
+      <Drawer.Screen name="Chat" component={ChatScreen} />
+    </Drawer.Navigator>
+  );
+};
+
+// Tab Navigator with Chat (with drawer), Profile and Insights
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -20,7 +40,7 @@ const TabNavigator = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Chat') {
+          if (route.name === 'ChatHome') {
             iconName = focused ? 'chat' : 'chat-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
@@ -35,7 +55,11 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen 
+        name="ChatHome" 
+        component={ChatNavigator} 
+        options={{ title: 'Chat' }}
+      />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Insights" component={InsightsScreen} />
     </Tab.Navigator>
@@ -46,17 +70,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Drawer.Navigator
-          drawerContent={(props) => <CustomDrawer {...props} />}
-          screenOptions={{
-            headerShown: false,
-            drawerStyle: {
-              width: '85%',
-            },
-          }}
-        >
-          <Drawer.Screen name="MainTabs" component={TabNavigator} />
-        </Drawer.Navigator>
+        <TabNavigator />
       </NavigationContainer>
     </GestureHandlerRootView>
   );
