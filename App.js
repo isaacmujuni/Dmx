@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import ChatScreen from './components/ChatScreen';
 import ProfileScreen from './components/ProfileScreen';
-import SettingsScreen from './components/SettingsScreen';
+import InsightsScreen from './components/InsightsScreen';
 import CustomDrawer from './components/CustomDrawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -24,8 +24,8 @@ const TabNavigator = () => {
             iconName = focused ? 'chat' : 'chat-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+          } else if (route.name === 'Insights') {
+            iconName = focused ? 'insights' : 'analytics';
           }
 
           return <Icon name={iconName} size={size} color={color} />;
@@ -37,7 +37,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Insights" component={InsightsScreen} />
     </Tab.Navigator>
   );
 };
